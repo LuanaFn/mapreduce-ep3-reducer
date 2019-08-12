@@ -11,13 +11,11 @@ import br.com.ufabc.sistemasdistribuidos.ep3.reducer.bo.ReducerBO;
 
 public class TCPServer {
 	private ServerSocket server;
-	private ReducerBO reducerbo;
+	int mappers;
 
 	public TCPServer(String ipAddress) throws Exception {
 		System.out.println("Digite a quantidade de mappers:");
-		int mappers = Integer.parseInt(new Scanner(System.in).nextLine());
-
-		reducerbo = new ReducerBO(mappers);
+		mappers = Integer.parseInt(new Scanner(System.in).nextLine());
 
 		if (ipAddress != null && !ipAddress.isEmpty())
 			this.server = new ServerSocket(8082, 1, InetAddress.getByName(ipAddress));
@@ -38,6 +36,9 @@ public class TCPServer {
 
 			builder.append(data);
 		}
+		
+		//cria um bo a cada mensagem recebida para evitar problema de farol nas variáveis
+		ReducerBO reducerbo = new ReducerBO(mappers);
 		reducerbo.recebeLinks(builder.toString());
 	}
 
