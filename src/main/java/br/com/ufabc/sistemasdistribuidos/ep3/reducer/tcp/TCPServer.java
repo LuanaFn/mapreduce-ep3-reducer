@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 import br.com.ufabc.sistemasdistribuidos.ep3.reducer.bo.ReducerBO;
 
@@ -13,9 +12,8 @@ public class TCPServer {
 	private ServerSocket server;
 	int mappers;
 
-	public TCPServer(String ipAddress) throws Exception {
-		System.out.println("Digite a quantidade de mappers:");
-		mappers = Integer.parseInt(new Scanner(System.in).nextLine());
+	public TCPServer(String ipAddress, int mappers) throws Exception {
+		this.mappers = mappers;
 
 		if (ipAddress != null && !ipAddress.isEmpty())
 			this.server = new ServerSocket(8082, 1, InetAddress.getByName(ipAddress));
@@ -55,9 +53,9 @@ public class TCPServer {
 		TCPServer app;
 
 		if (args.length > 0)
-			app = new TCPServer(args[0]);
+			app = new TCPServer(args[0], Integer.valueOf(args[1]));
 		else
-			app = new TCPServer(null);
+			app = new TCPServer(null, 1);
 
 		System.out.println(
 				"\r\nRunning Server: " + "Host=" + app.getSocketAddress().getHostAddress() + " Port=" + app.getPort());
