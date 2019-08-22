@@ -35,7 +35,7 @@ public class TCPServer {
 			builder.append(data);
 		}
 		
-		//cria um bo a cada mensagem recebida para evitar problema de farol nas variáveis
+		//cria um bo a cada mensagem recebida para evitar problema de farol nas variï¿½veis
 		ReducerBO reducerbo = new ReducerBO(mappers);
 		reducerbo.recebeLinks(builder.toString());
 	}
@@ -52,10 +52,11 @@ public class TCPServer {
 		System.out.println("REDUCER");
 		TCPServer app;
 
-		if (args.length > 0)
-			app = new TCPServer(args[0], Integer.valueOf(args[1]));
-		else
-			app = new TCPServer(null, 1);
+//		if (args.length > 0)
+			// proprio ip e n de mappers 
+			app = new TCPServer("http://ec2-34-229-109-240.compute-1.amazonaws.com/", 3);
+//		else
+//			app = new TCPServer(null, 1);
 
 		System.out.println(
 				"\r\nRunning Server: " + "Host=" + app.getSocketAddress().getHostAddress() + " Port=" + app.getPort());
